@@ -17,17 +17,24 @@ liff.init({ liffId: import.meta.env.VITE_liffid }).then(async() => {
     try{
       let url = (await runCode()).value
       if(!url){
+        window.close();
         return;
       }
       await axios.post(import.meta.env.VITE_host,{url,line:userID})
+      liff.openWindow({
+        url,
+        external:false
+      })
     }catch(e){
       console.error(e);
       alert("掃描系統錯誤");
+      window.close();
     }
   }
 
 }).catch((err) => {
-　console.log('初始化失敗')
+  alert("Line登入元件初始化失敗");
+  window.close();
 });;
 
 async function runCode(){

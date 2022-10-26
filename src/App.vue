@@ -14,7 +14,6 @@ liff.init({ liffId: import.meta.env.VITE_liffid }).then(async() => {
 
   } else{
     let userID = await liff.getProfile()
-    try{
       let url = (await runCode()).value
       if(!url){
         window.close();
@@ -23,13 +22,8 @@ liff.init({ liffId: import.meta.env.VITE_liffid }).then(async() => {
       await axios.post(import.meta.env.VITE_host,{url,line:userID})
       liff.openWindow({
         url,
-        external:false
+        external:true
       })
-    }catch(e){
-      console.error(e);
-      alert("掃描系統錯誤");
-      window.close();
-    }
   }
 
 }).catch((err) => {
